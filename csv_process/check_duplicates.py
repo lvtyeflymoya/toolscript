@@ -17,4 +17,24 @@ def check_duplicate_timestamps(csv_path):
         print("没有发现重复的时间戳")
 
 # 使用示例（请确认文件路径是否正确）
+
 check_duplicate_timestamps('d:/Python_Project/tsai/trainResult/experiment34/test/predictions.csv')
+
+
+def find_zero_values(csv_path, column_name):
+    """查找指定列中值为0的行并输出详细信息"""
+    df = pd.read_csv(csv_path)
+    
+    # 查找指定列中值为0的行
+    zero_rows = df[df[column_name] == 0]
+    
+    if not zero_rows.empty:
+        print(f"在列 '{column_name}' 中发现 {len(zero_rows)} 个零值")
+        for index, row in zero_rows.iterrows():
+            print(f"\n行号 {index}:")
+            print(row.to_string())
+    else:
+        print(f"列 '{column_name}' 中没有发现零值")
+
+# 使用示例（请修改为实际文件路径和列名）
+# find_zero_values('d:/Python_Project/tsai/trainResult/experiment34/test/predictions.csv', 'target_column')

@@ -29,8 +29,8 @@ def select_columns(input_path, output_path, selected_columns):
 
 # 使用示例
 if __name__ == "__main__":
-    input_file = "D:/Python_Project/tsai/trainResult/experiment34/test/predictions.csv"  # 替换输入路径
-    output_file = "1111.csv"  # 替换输出路径
-    target_columns = ["date", "down_inside_fuse"]  # 替换目标列名
+    input_file = "D:/Python_Project/toolscript/csvfile/originData.csv"  # 替换输入路径
+    output_file = "D:/Python_Project/toolscript/csvfile/up_inside/up_inside_pressure.csv"  # 替换输出路径
+    target_columns = ["date", "up_inside_pressure"]  # 替换目标列名
     
     select_columns(input_file, output_file, target_columns)

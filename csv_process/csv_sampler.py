@@ -1,7 +1,7 @@
 # 每个固定行数取一条数据
 import csv
 
-def sample_csv(input_path, output_path, interval=6):
+def sample_csv(input_path, output_path, interval=5):
     """每隔指定行数采样数据"""
     with open(input_path, 'r', newline='', encoding='utf-8') as infile, \
          open(output_path, 'w', newline='', encoding='utf-8') as outfile:
@@ -19,5 +19,5 @@ def sample_csv(input_path, output_path, interval=6):
                 writer.writerow(row)
 
 if __name__ == '__main__':
-    sample_csv('D:/Python_Project/toolscript/csvfile/up_inside/ETTh1_unsampled.csv', 
-               'D:/Python_Project/toolscript/csvfile/up_inside/ETTh1.csv', interval=60)
+    sample_csv("C:/Users/Zhang/Desktop/ETTh1_unsampled_interpolated_halfMonth.csv", 
+               'C:/Users/Zhang/Desktop/ETTh1_unsampled_interpolated_halfMonth55555.csv', interval=5)

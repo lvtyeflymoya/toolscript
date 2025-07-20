@@ -24,9 +24,9 @@ def remove_data_in_time_range(input_file, output_file, start_time, end_time):
                 writer.writerow(row)
 
 # 使用示例
-input_file = 'E:\zhanglelelelelelele\TimeSeriesDataset\down_inside\ETTh1.csv'
-output_file = 'E:\zhanglelelelelelele\TimeSeriesDataset\down_inside\ETTh111111.csv'
-start_time = '2023-07-18 00:00:00'
-end_time = '2023-07-30 19:45:58'
+input_file = 'D:/Python_Project/cluster/test_dataset/upoutside_unsamped/up_outside_vision_denoised_savgol.csv'
+output_file = 'D:/Python_Project/cluster/test_dataset/upoutside_unsamped/up_outside_vision_denoised.csv'
+start_time = '2023-07-03 10:00:00'
+end_time = '2023-07-03 19:00:00'
 
 remove_data_in_time_range(input_file, output_file, start_time, end_time)

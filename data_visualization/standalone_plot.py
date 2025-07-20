@@ -9,7 +9,7 @@ def create_standalone_plot(df, columns_to_plot=['down_inside_fuse'], shift_colum
     
     # 采样策略（保持原始数据分辨率）
     ts = df.set_index('date')[columns_to_plot]
-    sample_step = max(1, len(ts)//10000)
+    sample_step = max(1, len(ts)//300000)
     sampled_ts = ts.iloc[::sample_step]
 
     # 颜色循环列表（使用Plotly默认颜色）
@@ -86,9 +86,9 @@ def load_csv_data(csv_path, columns_to_plot=['date', 'down_inside_fuse'], date_t
 
 # 修改执行部分
 if __name__ == "__main__":
-    csv_path = "D:/Python_Project/tsai/trainResult/experiment14/test/full_predictions.csv"
+    csv_path = "D:/Python_Project/cluster/modified_data.csv"
     # 指定需要绘制的列（可单个或多个）
-    columns_to_plot = ['true', 'pred']  # ← 在此处修改需要绘制的列
+    columns_to_plot = ['up_inside_fuse', 'modified_water_level']  # ← 在此处修改需要绘制的列
     # columns_to_plot = ['down_inside_fuse']
     # 指定要平移的列和距离
     shift_column = None
