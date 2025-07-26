@@ -34,9 +34,9 @@ def extract_frames(input_dir, output_dir, interval_sec=0.3):
             cap.release()
 
 if __name__ == "__main__":
-    input_folder = "E:/dataset/testVedio/changjiang"    # 视频源目录
-    output_folder = "E:/dataset/testVedio/testVedio_changjiang"  # 输出图片目录
+    input_folder = "E:/Dataset/testVedio/0724"    # 视频源目录
+    output_folder = "E:/Dataset/testVedio/0724/testImage"  # 输出图片目录
     
     start_time = time.time()
-    extract_frames(input_folder, output_folder, interval_sec=4)
+    extract_frames(input_folder, output_folder, interval_sec=0.2)
     print(f"处理完成，耗时：{time.time()-start_time:.2f}秒")

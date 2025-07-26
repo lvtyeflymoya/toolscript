@@ -1,7 +1,7 @@
 from PIL import Image
 import os
 
-def resize_images(folder_path, output_folder_path, new_size=(513, 513)):
+def resize_images(folder_path, output_folder_path, new_size=(1280,720)):
     # 检查输出文件夹是否存在，如果不存在则创建
     if not os.path.exists(output_folder_path):
         os.makedirs(output_folder_path)
@@ -17,7 +17,7 @@ def resize_images(folder_path, output_folder_path, new_size=(513, 513)):
                 # 打开图片
                 with Image.open(file_path) as img:
                     # 调整图片大小
-                    img_resized = img.resize(new_size, Image.LANCZOS)
+                    img_resized = img.resize(new_size, Image.Resampling.LANCZOS)
                     # 构建输出文件的完整路径
                     output_file_path = os.path.join(output_folder_path, filename)
                     # 保存调整后的图片
@@ -27,6 +27,6 @@ def resize_images(folder_path, output_folder_path, new_size=(513, 513)):
                 print(f"无法处理图片: {filename}, 错误信息: {str(e)}")
 
 # 使用示例
-input_folder = 'F:\dataset\\003-waterline\\002-fine\SegmentationClass'
-output_folder = 'F:\dataset\\003-waterline\\002-coarse\SegmentationClass'
+input_folder = 'E:/dataset/标注/总jpg-rename'
+output_folder = 'E:/dataset/标注/总jpg-rename-resize'
 resize_images(input_folder, output_folder)
