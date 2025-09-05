@@ -58,9 +58,9 @@ def convert_coco_to_yolo(coco_json_path, target_classes, output_dir):
 
 if __name__ == "__main__":
     # 修改后的调用示例
-    coco_json = "E:/Dataset/testVedio/0724/testImage/label/COCO/annotations.json"
+    coco_json = "E:/Dataset/标注/zhang/label/COCO/annotations.json"
     target_classes = ['ship','rubbish','buoy', 'platform', 'wharf', 'pier']
-    output_dir = "E:/Dataset/testVedio/0724/testImage/label/YOLO"
+    output_dir = "E:/Dataset/标注/zhang/label/YOLO"
     convert_coco_to_yolo(
         coco_json,
         target_classes,

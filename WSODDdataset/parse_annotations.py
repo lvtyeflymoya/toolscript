@@ -35,6 +35,7 @@ def convert_to_yolo(annotations_dir, images_dir, target_classes, output_dir, out
     # 创建图片输出目录
     os.makedirs(output_img_dir, exist_ok=True)
     
+    
     # 遍历所有XML文件
     for xml_file in glob.glob(os.path.join(annotations_dir, "*.xml")):
         tree = ET.parse(xml_file)

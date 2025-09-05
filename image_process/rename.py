@@ -15,7 +15,7 @@ def rename_images_in_folder(folder_path):
         new_name = f"{idx:06d}{os.path.splitext(image)[1].lower()}"
 
         # 原文件路径和新文件路径
-        new_name = "WSODD_" + new_name
+        new_name = "0804_" + new_name
         old_file = os.path.join(folder_path, image)
         new_file = os.path.join(folder_path, new_name)
 
@@ -24,5 +24,5 @@ def rename_images_in_folder(folder_path):
         print(f"Renamed: {old_file} -> {new_file}")
 
 if __name__ == "__main__":
-    folder_path = "E:/dataset/WSODD USV_dataset/yolo_labels"
+    folder_path = "E:/Dataset/vedioImage0804-2s"
     rename_images_in_folder(folder_path)
