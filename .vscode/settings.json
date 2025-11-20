@@ -1,4 +1,10 @@
 {
     "marscode.chatLanguage": "cn",
-    "python.defaultInterpreterPath": "D:/Anaconda/envs/utralytics_env/python.exe"
+    "python.defaultInterpreterPath": "D:/Anaconda/envs/utralytics_env/python.exe",
+    "files.associations": {
+        "deque": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "vector": "cpp"
+    }
 }
