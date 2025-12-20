@@ -46,6 +46,7 @@ def watershed_segmentation(image_path, output_path, visualize=False):
     
     # 2. 基于Otsu的阈值分割
     _, thresh = cv2.threshold(blurred, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    # @TODO：可以改善确定前景背景的方法，另外还可以试一下其他基于区域的分割方法，这个方法效果完整一点
     
     # 3. 形态学操作 - 去除噪声和填充小洞
     # 开运算（先腐蚀后膨胀）去除噪声

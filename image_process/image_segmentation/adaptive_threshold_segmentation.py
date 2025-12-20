@@ -103,6 +103,58 @@ def adaptive_threshold_segmentation(image_path, block_size=11, C=2, save_results
     print("分割完成！")
     return adaptive_gaussian, adaptive_mean
 
+def crop_image_region(image_path, x=None, y=None, width=None, height=None, 
+                      ratio_x=None, ratio_y=None, ratio_w=None, ratio_h=None,
+                      save_result=False, output_path=None):
+   
+    # 读取图像
+    img = cv2.imread(image_path)
+    if img is None:
+        raise FileNotFoundError(f"无法找到或读取图像: {image_path}")
+    
+    height_img, width_img = img.shape[:2]
+    
+    # 处理左上角坐标 (x, y)
+    if x is None:
+        x = int(ratio_x * width_img) if ratio_x is not None else 0
+    if y is None:
+        y = int(ratio_y * height_img) if ratio_y is not None else 0
+    
+    # 处理宽高 (width, height)
+    if width is None:
+        width = int(ratio_w * width_img) if ratio_w is not None else (width_img - x)
+    if height is None:
+        height = int(ratio_h * height_img) if ratio_h is not None else (height_img - y)
+    
+    # 边界检查：确保裁剪区域不超出图像范围
+    x = max(0, min(x, width_img - 1))
+    y = max(0, min(y, height_img - 1))
+    width = min(width, width_img - x)
+    height = min(height, height_img - y)
+    
+    # 执行裁剪
+    cropped = img[y:y+height, x:x+width]
+    
+    print(f"裁剪完成！")
+    print(f"  原始图像大小: {width_img}x{height_img}")
+    print(f"  裁剪区域: ({x}, {y}) - 宽{width}x高{height}")
+    print(f"  裁剪后大小: {cropped.shape[1]}x{cropped.shape[0]}")
+    
+    # 保存结果（如果需要）
+    if save_result:
+        if output_path is None:
+            # 生成默认输出路径
+            base_name = Path(image_path).stem
+            suffix = Path(image_path).suffix
+            output_path = Path(image_path).parent / f"{base_name}_cropped_{x}_{y}_{width}_{height}{suffix}"
+        
+        output_path = Path(output_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        cv2.imwrite(str(output_path), cropped)
+        print(f"裁剪结果已保存到: {output_path}")
+    
+    return cropped
+
 def batch_process(folder_path, block_size=11, C=2, save_results=True):
     """
     批量处理文件夹中的所有图像

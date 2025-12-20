@@ -32,9 +32,9 @@ def convert_bmp_to_png(source_folder, destination_folder):
 
 if __name__ == "__main__":
     # 请替换为你实际的源文件夹路径
-    source_folder = "E:/work/车门门环拼接/image/正面打光/9/2碰"
+    source_folder = "E:/work/车门门环拼接/image/背面打光/9/1"
     # 请替换为你实际的目标文件夹路径
-    destination_folder = "E:/work/车门门环拼接/image/正面打光/9/2碰/png"
+    destination_folder = "E:/work/车门门环拼接/image/背面打光/9/1/png"
     
     # 执行转换
     convert_bmp_to_png(source_folder, destination_folder)

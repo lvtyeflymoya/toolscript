@@ -26,3 +26,4 @@ if __name__ == "__main__":
     source_folder = "D:/ImageAnnotation/003-waterline/result-002"
     destination_folder = "D:/ImageAnnotation/003-waterline/result-002/waterline"
     copy_spacial_named_images(source_folder, destination_folder, special_names)
+    
