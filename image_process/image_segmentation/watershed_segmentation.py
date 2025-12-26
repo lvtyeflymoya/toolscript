@@ -66,28 +66,171 @@ def fill_by_largest_black_area(closed):
 
     return filled_image, max_area
 
-def extract_foreground_simple(closed):
+def process_with_centerline(closed):
     """
-    简单的前景提取：先填充，然后腐蚀获得前景标记
+    利用中心线处理二值图
 
     参数:
     - closed: 闭运算后的二值图像
 
     返回:
-    - sure_fg: 确定的前景区域（腐蚀后的白色区域）
-    - filled_image: 填充后的图像
-    - largest_black_area: 最大黑色连通域面积
+    - centerline_image: 中心线图像
+    - line_params: 直线参数
+    - processed_image: 处理后的图像
+    - skeleton_image: 骨架图像
     """
-    # 1. 填充非最大黑色区域为白色
-    filled_image, largest_black_area = fill_by_largest_black_area(closed)
+    try:
+        from skimage.morphology import skeletonize
+        from sklearn.linear_model import RANSACRegressor
+    except ImportError:
+        print("需要安装scikit-image和scikit-learn库")
+        print("请运行: pip install scikit-image scikit-learn")
+        return None, None, closed, None
 
-    # 2. 腐蚀运算获得确定前景
+    # 1. 反转二值图（黑色区域为前景）
+    inverted = cv2.bitwise_not(closed)
+
+    # 2. 使用skimage的骨架提取
+    skeleton_binary = skeletonize(inverted > 0)
+    skeleton_image = (skeleton_binary * 255).astype(np.uint8)
+
+    # 3. 获取骨架点坐标
+    skeleton_points = np.argwhere(skeleton_binary)
+    if len(skeleton_points) < 2:
+        return None, None, closed, skeleton_image
+
+    # 4. 使用RANSAC拟合直线
+    X = skeleton_points[:, 1].reshape(-1, 1)  # x坐标
+    y = skeleton_points[:, 0]  # y坐标
+
+    ransac = RANSACRegressor(
+        residual_threshold=3.0,
+        max_trials=100,
+        random_state=42
+    )
+    ransac.fit(X, y)
+
+    # 获取直线参数 y = mx + b
+    slope = ransac.estimator_.coef_[0]
+    intercept = ransac.estimator_.intercept_
+
+    # 转换为标准形式 Ax + By + C = 0
+    A, B, C = -slope, 1, -intercept
+    norm = np.sqrt(A**2 + B**2)
+    if norm > 0:
+        A, B, C = A/norm, B/norm, C/norm
+
+    # 5. 创建中心线图像
+    centerline_image = np.zeros_like(closed)
+    inlier_mask = ransac.inlier_mask_
+    if np.any(inlier_mask):
+        inlier_points = skeleton_points[inlier_mask]
+        for y, x in inlier_points:
+            centerline_image[y, x] = 255
+
+    # 6. 在原图上创建中心线两侧的背景区域
+    processed_image = closed.copy()
+    height, width = closed.shape
+
+    # 创建网格坐标
+    y_coords, x_coords = np.mgrid[0:height, 0:width]
+
+    # 计算每个点到直线的距离
+    distances = np.abs(A * x_coords + B * y_coords + C)
+
+    # 将距离中心线3个像素内的区域设为黑色
+    mask = distances < 3
+    processed_image[mask] = 0
+
+    line_params = (A, B, C)
+    return centerline_image, line_params, processed_image, skeleton_image
+
+def extract_foreground_with_centerline(closed):
+    """
+    基于中心线的前景提取
+
+    参数:
+    - closed: 闭运算后的二值图像
+
+    返回:
+    - sure_fg: 确定的前景区域
+    - filled_image: 填充后的图像
+    - centerline_data: 中心线相关数据
+    """
+    # 1. 利用中心线处理
+    centerline_image, line_params, processed_image, skeleton_image = process_with_centerline(closed)
+
+    # 2. 填充非最大黑色区域为白色
+    filled_image, largest_black_area = fill_by_largest_black_area(processed_image)
+
+    # 3. 腐蚀运算获得确定前景
     kernel = np.ones((5, 5), np.uint8)
     sure_fg = cv2.erode(filled_image, kernel, iterations=2)
 
-    return sure_fg, filled_image, largest_black_area
+    # 4. 准备中心线数据
+    centerline_data = {
+        'centerline_image': centerline_image,
+        'skeleton_image': skeleton_image,
+        'line_params': line_params,
+        'processed_image': processed_image,
+        'largest_black_area': largest_black_area
+    }
 
-def visualize_simple_process(closed, filled_image, sure_fg, largest_black_area):
+    return sure_fg, filled_image, centerline_data
+
+def visualize_centerline_process(closed, centerline_data):
+    """
+    可视化中心线处理过程
+
+    参数:
+    - closed: 闭运算后的二值图像
+    - centerline_data: 中心线相关数据
+    """
+    if centerline_data is None or centerline_data['skeleton_image'] is None:
+        print("无法提取中心线")
+        return
+
+    skeleton_image = centerline_data['skeleton_image']
+    centerline_image = centerline_data['centerline_image']
+    processed_image = centerline_data['processed_image']
+    line_params = centerline_data['line_params']
+
+    plt.figure(figsize=(20, 5))
+
+    plt.subplot(141)
+    plt.imshow(closed, cmap='gray')
+    plt.title('闭运算后的图像')
+    plt.axis('off')
+
+    plt.subplot(142)
+    plt.imshow(skeleton_image, cmap='gray')
+    plt.title('骨架提取结果')
+    plt.axis('off')
+
+    plt.subplot(143)
+    if centerline_image is not None:
+        plt.imshow(centerline_image, cmap='gray')
+        plt.title('RANSAC中心线检测')
+    else:
+        plt.imshow(skeleton_image, cmap='gray')
+        plt.title('中心线检测失败')
+    plt.axis('off')
+
+    plt.subplot(144)
+    plt.imshow(processed_image, cmap='gray')
+    plt.title('中心线背景处理后')
+    plt.axis('off')
+
+    # 如果有直线参数，显示直线方程
+    if line_params is not None:
+        A, B, C = line_params
+        plt.figtext(0.5, 0.02, f'中心线方程: {A:.3f}x + {B:.3f}y + {C:.3f} = 0',
+                   ha='center', fontsize=10)
+
+    plt.tight_layout()
+    plt.show()
+
+def visualize_simple_process(closed, filled_image, sure_fg, centerline_data):
     """
     可视化简化的处理过程
 
@@ -95,21 +238,31 @@ def visualize_simple_process(closed, filled_image, sure_fg, largest_black_area):
     - closed: 闭运算后的二值图像
     - filled_image: 填充后的图像
     - sure_fg: 确定的前景区域
-    - largest_black_area: 最大黑色连通域面积
+    - centerline_data: 中心线相关数据
     """
-    plt.figure(figsize=(15, 5))
+    plt.figure(figsize=(20, 5))
 
-    plt.subplot(131)
+    plt.subplot(141)
     plt.imshow(closed, cmap='gray')
     plt.title('闭运算后的图像')
     plt.axis('off')
 
-    plt.subplot(132)
+    plt.subplot(142)
+    if centerline_data and centerline_data.get('processed_image') is not None:
+        plt.imshow(centerline_data['processed_image'], cmap='gray')
+        plt.title('中心线背景处理后')
+    else:
+        plt.imshow(closed, cmap='gray')
+        plt.title('原始闭运算图像')
+    plt.axis('off')
+
+    plt.subplot(143)
     plt.imshow(filled_image, cmap='gray')
+    largest_black_area = centerline_data.get('largest_black_area', 0) if centerline_data else 0
     plt.title(f'填充后（最大黑色区域面积：{largest_black_area}）')
     plt.axis('off')
 
-    plt.subplot(133)
+    plt.subplot(144)
     plt.imshow(sure_fg, cmap='gray')
     plt.title('腐蚀后的前景标记')
     plt.axis('off')
@@ -171,8 +324,8 @@ def watershed_algorithm(image):
     # 3. 形态学操作
     closed, sure_bg = morphological_operations(thresh)
 
-    # 4. 简化的前景提取
-    sure_fg, filled_image, largest_black_area = extract_foreground_simple(closed)
+    # 4. 基于中心线的前景提取
+    sure_fg, filled_image, centerline_data = extract_foreground_with_centerline(closed)
 
     # 5. 计算标记
     markers, unknown = compute_markers(sure_bg, sure_fg)
@@ -192,7 +345,7 @@ def watershed_algorithm(image):
         'unknown': unknown,
         'markers': markers,
         'filled_image': filled_image,
-        'largest_black_area': largest_black_area,
+        'centerline_data': centerline_data,
         'closed': closed
     }
 
@@ -369,11 +522,17 @@ def watershed_segmentation(image_path, output_path, visualize=True):
     
     # 显示结果（如果需要）
     if visualize:
+        # 显示中心线处理过程
+        if intermediate_results['centerline_data']:
+            visualize_centerline_process(intermediate_results['closed'],
+                                       intermediate_results['centerline_data'])
+
         # 显示简化的处理过程
         visualize_simple_process(intermediate_results['closed'],
                                intermediate_results['filled_image'],
                                intermediate_results['sure_fg'],
-                               intermediate_results['largest_black_area'])
+                               intermediate_results['centerline_data'])
+
         # 显示完整的处理流程
         visualize_process(image, mask, intermediate_results)
     
@@ -441,13 +600,13 @@ def parse_arguments():
     import argparse
     parser = argparse.ArgumentParser(description='使用分水岭算法进行图像分割')
     parser.add_argument('-i', '--input', 
-                        default='E:/work/车门门环拼接/image/正面打光/9/1/1958_7061.bmp', 
+                        default='E:/work/车门门环拼接/image/正面打光/9/2碰/watersheld/6723_3879.bmp', 
                         help='输入图像路径或文件夹路径')
     parser.add_argument('-o', '--output', 
                         default='./output/watershed_result.bmp', 
                         help='输出图像路径或文件夹路径')
     parser.add_argument('-v', '--visualize', 
-                        default=False,
+                        default=True,
                         action='store_true', 
                         help='显示分割结果')
     parser.add_argument('-b', '--batch', 
