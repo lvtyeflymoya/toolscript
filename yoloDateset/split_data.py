@@ -6,8 +6,8 @@ import numpy as np
 val_size = 0.2
 test_size = 0.1
 postfix = 'png'
-imgpath = 'E:/work/图纸解析/dataset/all_graphes'
-txtpath = 'E:/work/图纸解析/dataset/all_graphes/label/YOLO'
+imgpath = r'E:\work\drawing_analysis\dataset\obb_all_graphes'
+txtpath = r'E:\work\drawing_analysis\dataset\obb_all_graphes\labels'
 
 os.makedirs('YOLO_Format/images/train', exist_ok=True)
 os.makedirs('YOLO_Format/images/val', exist_ok=True)
