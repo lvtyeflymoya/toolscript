@@ -89,10 +89,10 @@ def draw_yolo_obb(image_path, label_path, class_names=None):
 
 if __name__ == "__main__":
     # 请根据您本地的实际路径替换以下内容
-    image_file = r"E:\work\drawing_analysis\dataset\obb_all_graphes\253_14_roi5.png"
-    label_file = r"E:\work\drawing_analysis\dataset\obb_all_graphes\labels\253_14_roi5.txt"
+    image_file = r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\253_42_roi5.png"
+    label_file = r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\all_labels\253_42_roi5.txt"
     
     # 转换时约定的类别名字典（顺序必须和转换时生成的数字ID对应，0对应第一个，1对应第二个）
-    class_list = ["angelSteel", "clamp"]
+    class_list = ["angelSteel", "clamp", "rightAngleConnection", "TConnection", "tiltedConnection", "dimension"]
     
     draw_yolo_obb(image_file, label_file, class_list)

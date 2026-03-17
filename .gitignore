@@ -2,5 +2,7 @@
 *.html
 *.zip
 *.png
+*.jpg
 YOLO_Format/
 label_txt_processed/
+datasets/

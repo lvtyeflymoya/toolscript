@@ -3,18 +3,25 @@ random.seed(0)
 import numpy as np
 # from sklearn.model_selection import train_test_split
 
+# 数据集划分比例
 val_size = 0.2
 test_size = 0.1
-postfix = 'png'
-imgpath = r'E:\work\drawing_analysis\dataset\obb_all_graphes'
-txtpath = r'E:\work\drawing_analysis\dataset\obb_all_graphes\labels'
 
-os.makedirs('YOLO_Format/images/train', exist_ok=True)
-os.makedirs('YOLO_Format/images/val', exist_ok=True)
-os.makedirs('YOLO_Format/images/test', exist_ok=True)
-os.makedirs('YOLO_Format/labels/train', exist_ok=True)
-os.makedirs('YOLO_Format/labels/val', exist_ok=True)
-os.makedirs('YOLO_Format/labels/test', exist_ok=True)
+# 输入路径
+postfix = 'png'
+imgpath = r'E:\work\drawing_analysis\dataset\obb_all_graphes\annotation'
+txtpath = r'E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\all_labels'
+
+# 输出路径
+output_dir = r'E:\work\drawing_analysis\dataset\obb_all_graphes\a_c_c_d_anno'
+
+# 创建输出目录
+os.makedirs(f'{output_dir}/images/train', exist_ok=True)
+os.makedirs(f'{output_dir}/images/val', exist_ok=True)
+os.makedirs(f'{output_dir}/images/test', exist_ok=True)
+os.makedirs(f'{output_dir}/labels/train', exist_ok=True)
+os.makedirs(f'{output_dir}/labels/val', exist_ok=True)
+os.makedirs(f'{output_dir}/labels/test', exist_ok=True)
 
 listdir = np.array([i for i in os.listdir(txtpath) if 'txt' in i])
 random.shuffle(listdir)
@@ -22,13 +29,13 @@ train, val, test = listdir[:int(len(listdir) * (1 - val_size - test_size))], lis
 print(f'train set size:{len(train)} val set size:{len(val)} test set size:{len(test)}')
 
 for i in train:
-    shutil.copy('{}/{}.{}'.format(imgpath, i[:-4], postfix), 'YOLO_Format/images/train/{}.{}'.format(i[:-4], postfix))
-    shutil.copy('{}/{}'.format(txtpath, i), 'YOLO_Format/labels/train/{}'.format(i))
+    shutil.copy('{}/{}.{}'.format(imgpath, i[:-4], postfix), f'{output_dir}/images/train/{i[:-4]}.{postfix}')
+    shutil.copy('{}/{}'.format(txtpath, i), f'{output_dir}/labels/train/{i}')
 
 for i in val:
-    shutil.copy('{}/{}.{}'.format(imgpath, i[:-4], postfix), 'YOLO_Format/images/val/{}.{}'.format(i[:-4], postfix))
-    shutil.copy('{}/{}'.format(txtpath, i), 'YOLO_Format/labels/val/{}'.format(i))
+    shutil.copy('{}/{}.{}'.format(imgpath, i[:-4], postfix), f'{output_dir}/images/val/{i[:-4]}.{postfix}')
+    shutil.copy('{}/{}'.format(txtpath, i), f'{output_dir}/labels/val/{i}')
 
 for i in test:
-    shutil.copy('{}/{}.{}'.format(imgpath, i[:-4], postfix), 'YOLO_Format/images/test/{}.{}'.format(i[:-4], postfix))
-    shutil.copy('{}/{}'.format(txtpath, i), 'YOLO_Format/labels/test/{}'.format(i))
+    shutil.copy('{}/{}.{}'.format(imgpath, i[:-4], postfix), f'{output_dir}/images/test/{i[:-4]}.{postfix}')
+    shutil.copy('{}/{}'.format(txtpath, i), f'{output_dir}/labels/test/{i}')
