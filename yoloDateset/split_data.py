@@ -10,10 +10,10 @@ test_size = 0.1
 # 输入路径
 postfix = 'png'
 imgpath = r'E:\work\drawing_analysis\dataset\obb_all_graphes\annotation'
-txtpath = r'E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\all_labels'
+txtpath = r'E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\ab_af_c_c_d_a_labels'
 
 # 输出路径
-output_dir = r'E:\work\drawing_analysis\dataset\obb_all_graphes\a_c_c_d_anno'
+output_dir = r'E:\work\drawing_analysis\dataset\obb_all_graphes\ab_af_c_c_d_a_anno'
 
 # 创建输出目录
 os.makedirs(f'{output_dir}/images/train', exist_ok=True)

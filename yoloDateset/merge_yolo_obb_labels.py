@@ -19,22 +19,23 @@ from typing import Dict, List
 
 # ==================== 配置区域 ====================
 # 文件夹 A 的标签列表
-CLASSES_A = ["angelSteel", "clamp", "rightAngleConnection", "TConnection", "tiltedConnection"]
+CLASSES_A = ["angelSteelBack", "angelSteelFront", "clamp", "LConnection", "TConnection", "tiltedConnection", "dimension"]
 
 # 文件夹 B 的标签列表
-CLASSES_B = ["dimension"]
+CLASSES_B = ["arrowhead"]
 
 # 合并后的标签列表（必须等于 CLASSES_A + CLASSES_B）
-MERGED_CLASSES = ["angelSteel", "clamp", "rightAngleConnection", "TConnection", "tiltedConnection", "dimension"]
+MERGED_CLASSES = ["angelSteelBack", "angelSteelFront", "clamp", "LConnection", "TConnection", 
+                  "tiltedConnection", "dimension", "arrowhead"]
 
 # 文件夹 A 路径（包含第一批 label 文件）
-FOLDER_A = r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\all_labels"
+FOLDER_A = r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\ab_af_c_c_d_labels\txt"
 
 # 文件夹 B 路径（包含第二批 label 文件）
-FOLDER_B = r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\dimension_labels\yolo_txt"
+FOLDER_B = r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\arrowhead_labels\yolo_txt"
 
 # 输出文件夹路径（合并后的 label 文件）
-OUTPUT_DIR = r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\all_labels-1"
+OUTPUT_DIR = r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\ab_af_c_c_d_a_labels"
 # ==================== 配置区域结束 ====================
 
 

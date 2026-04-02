@@ -4,7 +4,7 @@
 输入：JSON 文件（shape_type=rotation）
 输出：YOLO-OBB txt 文件（cls x1 y1 x2 y2 x3 y3 x4 y4 x5 y5 x6 y6 x7 y7 x8 y8）
 
-python yoloDateset/json_to_yolo_obb.py -input E:/work/drawing_analysis/dataset/obb_all_graphes/annotation/dimension_labels/json -output E:/work/drawing_analysis/dataset/obb_all_graphes/annotation/dimension_labels/yolo_txt
+python yoloDateset/json_to_yolo_obb.py --input E:/work/drawing_analysis/dataset/obb_all_graphes/annotation/ab_af_c_c_d_labels/x_json --output E:/work/drawing_analysis/dataset/obb_all_graphes/annotation/ab_af_c_c_d_labels/txt
 """
 
 import json
@@ -13,8 +13,16 @@ from pathlib import Path
 
 
 # 类别映射
+
 LABEL2ID = {
-    "dimension": 0
+    "angelSteelBack": 0,
+    "angelSteelFront": 1,
+    "clamp": 2,
+    "LConnection": 3,
+    "TConnection": 4,
+    "tiltedConnection": 5,
+    "dimension": 6,
+    "arrowhead": 7
 }
 
 
