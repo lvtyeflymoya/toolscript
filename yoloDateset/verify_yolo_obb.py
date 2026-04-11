@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 import os
 
+from configs import CLASSES
+
 def draw_yolo_obb(image_path, label_path, class_names=None):
     """
     读取图片和 YOLO-OBB 格式的标签文件，绘制旋转框并显示
@@ -89,11 +91,10 @@ def draw_yolo_obb(image_path, label_path, class_names=None):
 
 if __name__ == "__main__":
     # 请根据您本地的实际路径替换以下内
-    image_file = r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\253_286_roi5.png"
-    label_file = r"E:\work\drawing_analysis\dataset\obb_all_graphes\ab_af_c_c_d_anno\yolo\labels\test\253_286_roi5.txt"
+    image_file = r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\253_16_roi5.png"
+    label_file = r"E:\work\drawing_analysis\dataset\obb_all_graphes\ab_af_c_lc_tc_d_anno\yolo\val\253_16_roi5.txt"
     
-    # 转换时约定的类别名字典（顺序必须和转换时生成的数字ID对应，0对应第一个，1对应第二个）
-    class_list = ["angelSteelBack", "angelSteelFront", "clamp", "LConnection", "TConnection", 
-                  "tiltedConnection", "dimension", "arrowhead"]
+    # CLASSES 已从 configs.py 导入
+    class_list = CLASSES
     
     draw_yolo_obb(image_file, label_file, class_list)

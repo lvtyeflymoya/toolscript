@@ -16,17 +16,18 @@ class_id x1 y1 x2 y2 x3 y3 x4 y4
 import os
 from typing import Dict, List
 
+from configs import CLASSES
+
 
 # ==================== 配置区域 ====================
+# CLASSES 已从 configs.py 导入，作为合并后的标签列表
+MERGED_CLASSES = CLASSES
+
 # 文件夹 A 的标签列表
 CLASSES_A = ["angelSteelBack", "angelSteelFront", "clamp", "LConnection", "TConnection", "tiltedConnection", "dimension"]
 
 # 文件夹 B 的标签列表
 CLASSES_B = ["arrowhead"]
-
-# 合并后的标签列表（必须等于 CLASSES_A + CLASSES_B）
-MERGED_CLASSES = ["angelSteelBack", "angelSteelFront", "clamp", "LConnection", "TConnection", 
-                  "tiltedConnection", "dimension", "arrowhead"]
 
 # 文件夹 A 路径（包含第一批 label 文件）
 FOLDER_A = r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\ab_af_c_c_d_labels\txt"
