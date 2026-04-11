@@ -125,9 +125,9 @@ if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser(description='xanylabeling JSON转DOTA格式')
-    parser.add_argument('--input', type=str, required=True,
+    parser.add_argument('--input', type=str, default=r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\ab_af_c_c_d_labels\x_json",
                         help='输入的JSON文件或目录')
-    parser.add_argument('--output', '-o', type=str, default="DOTA_dataset/output",
+    parser.add_argument('--output', '-o', type=str, default="DOTA_dataset/output/dota_txt",
                         help='输出目录，默认与输入JSON同目录')
     parser.add_argument('--imagesource', type=str, default="drawings",
                         help='图像来源（可选）')
