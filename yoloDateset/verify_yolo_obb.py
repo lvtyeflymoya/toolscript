@@ -91,8 +91,8 @@ def draw_yolo_obb(image_path, label_path, class_names=None):
 
 if __name__ == "__main__":
     # 请根据您本地的实际路径替换以下内
-    image_file = r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\253_23_roi5.png"
-    label_file = r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\ab_af_c_lc_tc_d_an_cn_em_labels\yolo_txt\253_23_roi5.txt"
+    image_file = r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\253_26_roi5.png"
+    label_file = r"E:\work\drawing_analysis\dataset\obb_all_graphes\ab_af_c_lc_tc_d_an_cn_em_anno\yolo\labels\train\253_26_roi5.txt"
     
     # CLASSES 已从 configs.py 导入
     class_list = CLASSES

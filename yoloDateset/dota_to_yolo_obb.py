@@ -20,16 +20,17 @@ from pathlib import Path
 from typing import Optional
 
 
-# 类别映射（与 yoloDateset/json_to_yolo_obb.py 保持一致）
+# 类别映射
 LABEL2ID = {
     "angelSteelBack": 0,
     "angelSteelFront": 1,
     "clamp": 2,
     "LConnection": 3,
     "TConnection": 4,
-    "tiltedConnection": 5,
-    "dimension": 6,
-    "arrowhead": 7
+    "dimension": 5,
+    "angelSteelNumber": 6,
+    "clampNumber": 7,
+    "endMark":8
 }
 
 # 支持的图像后缀
@@ -202,13 +203,13 @@ def convert_directory(
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='DOTA格式转YOLO-OBB格式')
     parser.add_argument('--input', type=str,
-                        default=r"E:\work\drawing_analysis\dataset\obb_all_graphes\ab_af_c_c_d_anno\dota\labels\val",
+                        default=r"E:\work\drawing_analysis\dataset\obb_all_graphes\ab_af_c_lc_tc_d_an_cn_em_anno\dota\labels\val",
                         help='DOTA标注文件或目录')
     parser.add_argument('--images', type=str,
-                        default=r"E:\work\drawing_analysis\dataset\obb_all_graphes\ab_af_c_c_d_anno\dota\images\val",
+                        default=r"E:\work\drawing_analysis\dataset\obb_all_graphes\ab_af_c_lc_tc_d_an_cn_em_anno\dota\images\val",
                         help='对应的图像目录')
     parser.add_argument('--output', '-o', type=str,
-                        default=r"E:\work\drawing_analysis\dataset\obb_all_graphes\ab_af_c_c_d_anno\yolo\labels\val",
+                        default=r"E:\work\drawing_analysis\dataset\obb_all_graphes\ab_af_c_lc_tc_d_an_cn_em_anno\yolo\labels\val",
                         help='输出目录，默认与输入标注同目录')
 
     args = parser.parse_args()
