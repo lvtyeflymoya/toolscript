@@ -22,7 +22,9 @@ CLASSES = [
     "clamp",
     "LConnection",
     "TConnection",
-    "tiltedConnection",
     "dimension",
+    "angelSteelNumber",
+    "clampNumber",
+    "endMark"
 ]
 

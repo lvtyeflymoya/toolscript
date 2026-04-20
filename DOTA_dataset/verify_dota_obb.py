@@ -142,9 +142,9 @@ def draw_dota_obb(image_path: str, label_path: str, output_path: str = None):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='验证DOTA格式标注')
-    parser.add_argument('--image', '-i', type=str, default=r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\all_graphes\253_16_roi5.png",
+    parser.add_argument('--image', '-i', type=str, default=r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\all_graphes\253_23_roi5.png",
                         help='图片文件路径')
-    parser.add_argument('--label', '-l', type=str, default=r"E:\work\drawing_analysis\dataset\obb_all_graphes\ab_af_c_lc_tc_d_anno\dota\labels\val\253_16_roi5.txt",
+    parser.add_argument('--label', '-l', type=str, default=r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\ab_af_c_lc_tc_d_an_cn_em_labels\dota_txt\253_23_roi5.txt",
                         help='DOTA格式标签文件路径')
     parser.add_argument('--output', '-o', type=str, default=None,
                         help='输出图片路径（可选）')

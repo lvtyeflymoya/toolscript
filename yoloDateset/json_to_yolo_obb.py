@@ -20,9 +20,10 @@ LABEL2ID = {
     "clamp": 2,
     "LConnection": 3,
     "TConnection": 4,
-    "tiltedConnection": 5,
-    "dimension": 6,
-    "arrowhead": 7
+    "dimension": 5,
+    "angelSteelNumber": 6,
+    "clampNumber": 7,
+    "endMark": 8
 }
 
 
@@ -123,9 +124,9 @@ if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser(description='labelme 旋转框转 YOLO-OBB 格式')
-    parser.add_argument('--input', type=str, required=True,
+    parser.add_argument('--input', type=str, default=r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\ab_af_c_lc_tc_d_an_cn_em_labels\x_json",
                         help='输入的 JSON 文件或目录')
-    parser.add_argument('--output', '-o', type=str, default=None,
+    parser.add_argument('--output', '-o', type=str, default=r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\ab_af_c_lc_tc_d_an_cn_em_labels\yolo_txt",
                         help='输出目录，默认为 None（与输入 JSON 同目录）')
 
     args = parser.parse_args()
