@@ -4,16 +4,16 @@ import numpy as np
 # from sklearn.model_selection import train_test_split
 
 # 数据集划分比例
-val_size = 0.2
-test_size = 0.1
+val_size = 0.3
+test_size = 0.001
 
 # 输入路径
 postfix = 'png'
-imgpath = r'E:\work\drawing_analysis\dataset\obb_all_graphes\annotation'
-txtpath = r'E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\ab_af_c_c_d_a_labels'
+imgpath = r'C:\Users\Zhang\Desktop\新建文件夹'
+txtpath = r'C:\Users\Zhang\Desktop\新建文件夹'
 
 # 输出路径
-output_dir = r'E:\work\drawing_analysis\dataset\obb_all_graphes\ab_af_c_c_d_a_anno'
+output_dir = r'C:\Users\Zhang\Desktop\新建文件夹\anno\yolo'
 
 # 创建输出目录
 os.makedirs(f'{output_dir}/images/train', exist_ok=True)

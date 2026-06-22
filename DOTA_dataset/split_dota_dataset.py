@@ -100,11 +100,11 @@ def split_dataset(
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='DOTA数据集划分')
-    parser.add_argument('--images', '-i', type=str, default=r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\all_graphes",
+    parser.add_argument('--images', '-i', type=str, default=r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\images_dimension_crop",
                         help='图片目录')
-    parser.add_argument('--labels', '-l', type=str, default=r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\ab_af_c_lc_tc_d_an_cn_em_labels\dota_txt",
+    parser.add_argument('--labels', '-l', type=str, default=r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\labels_arrowhead_in_dimension\dota_txt",
                         help='标签目录（DOTA格式txt文件）')
-    parser.add_argument('--output', '-o', type=str, default=r"DOTA_dataset\output\dota",
+    parser.add_argument('--output', '-o', type=str, default=r"E:\work\drawing_analysis\dataset\obb_all_graphes\ah_text_in_dimension_anno\dota",
                         help='输出目录')
     parser.add_argument('--train', type=float, default=0.7,
                         help='训练集比例 (默认: 0.7)')

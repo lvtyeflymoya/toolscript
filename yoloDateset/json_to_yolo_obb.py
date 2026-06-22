@@ -124,9 +124,9 @@ if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser(description='labelme 旋转框转 YOLO-OBB 格式')
-    parser.add_argument('--input', type=str, default=r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\ab_af_c_lc_tc_d_an_cn_em_labels\x_json",
+    parser.add_argument('--input', type=str, default=r"C:\Users\Zhang\Desktop\新建文件夹\x_label",
                         help='输入的 JSON 文件或目录')
-    parser.add_argument('--output', '-o', type=str, default=r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\ab_af_c_lc_tc_d_an_cn_em_labels\yolo_txt",
+    parser.add_argument('--output', '-o', type=str, default=r"C:\Users\Zhang\Desktop\新建文件夹\yolo_txt",
                         help='输出目录，默认为 None（与输入 JSON 同目录）')
 
     args = parser.parse_args()

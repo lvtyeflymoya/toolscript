@@ -19,12 +19,12 @@ YOLO-OBB 数据集公共配置
 CLASSES = [
     "angelSteelBack",
     "angelSteelFront",
-    "clamp",
-    "LConnection",
-    "TConnection",
-    "dimension",
-    "angelSteelNumber",
-    "clampNumber",
-    "endMark"
+    # "clamp",
+    # "LConnection",
+    # "TConnection",
+    # "dimension",
+    # "angelSteelNumber",
+    # "clampNumber",
+    # "endMark"
 ]
 

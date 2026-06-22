@@ -108,7 +108,7 @@ if __name__ == "__main__":
                         help="JSON 标注文件目录")
     parser.add_argument("--image_dir", type=str, default=r"E:\work\drawing_analysis\dataset\obb_all_graphes\annotation\all_graphes",
                         help="对应图片目录")
-    parser.add_argument("--output_dir", type=str, default=r"E:\work\drawing_analysis\dataset\ocr\an_cn_em_cropped_images\angleSteel_number",
+    parser.add_argument("--output_dir", type=str, default=r"E:\work\drawing_analysis\dataset\ocr\an_cn_em_cropped_images\dimension",
                         help="裁剪结果输出目录")
     parser.add_argument("--classes", nargs="+", default=["dimension"], 
                         help="要裁剪的类别列表")
