@@ -3,6 +3,7 @@
 *.zip
 *.png
 *.jpg
+*.pyc
 YOLO_Format/
 label_txt_processed/
 datasets/
